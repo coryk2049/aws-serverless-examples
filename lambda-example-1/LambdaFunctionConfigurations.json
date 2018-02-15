@@ -1,0 +1,28 @@
+{
+    "LambdaFunctionConfigurations": [
+        {
+            "Id": "S3InvokeLambda",
+            "LambdaFunctionArn": "arn:aws:lambda:us-east-1:472136333626:function:POCLambdaFunction",
+            "Events": [
+                "s3:ObjectCreated:Put",
+                "s3:ObjectCreated:Post",
+                "s3:ObjectCreated:Copy",
+                "s3:ObjectCreated:CompleteMultipartUpload"
+            ],
+            "Filter": {
+                "Key": {
+                    "FilterRules": [
+                        {
+                            "Name": "suffix",
+                            "Value": ".csv"
+                        },
+                        {
+                            "Name": "prefix",
+                            "Value": "pcrf"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

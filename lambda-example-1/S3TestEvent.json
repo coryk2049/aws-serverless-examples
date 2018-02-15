@@ -1,0 +1,38 @@
+{
+    "Records": [
+        {
+            "eventVersion": "2.0",
+            "eventTime": "2018-02-14T06:15:01.841Z",
+            "requestParameters": {
+                "sourceIPAddress": "100.36.33.210"
+            },
+            "s3": {
+                "configurationId": "YTRjODhkYTctMWE3NS00YWExLWI0OGEtMzhkMWMyZDJmZjQx",
+                "object": {
+                    "eTag": "7cec2479136c50d936bed02cfa3f7de5",
+                    "sequencer": "005A83D3E5BE3A1107",
+                    "key": "pcrf1.example.com_edr_B25_20170101000000_20170101000014.csv",
+                    "size": 53430
+                },
+                "bucket": {
+                    "arn": "arn:aws:s3:::coryk-landing-zone",
+                    "name": "coryk-landing-zone",
+                    "ownerIdentity": {
+                        "principalId": "A2V3F0WTJYM5AV"
+                    }
+                },
+                "s3SchemaVersion": "1.0"
+            },
+            "responseElements": {
+                "x-amz-id-2": "FdaWnpH6OSSp3zgf+IooUR6jhORhqVhxx1G1SRkyZ+8KsqVakK78Gfm9LJvx0juo6yohkIF6ss4=",
+                "x-amz-request-id": "65645BB15D46D2DF"
+            },
+            "awsRegion": "us-east-1",
+            "eventName": "ObjectCreated:Put",
+            "userIdentity": {
+                "principalId": "AWS:AIDAI7CNBPNQNKXI7XKSM"
+            },
+            "eventSource": "aws:s3"
+        }
+    ]
+}
