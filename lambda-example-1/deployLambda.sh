@@ -62,7 +62,16 @@ aws iam put-role-policy \
     --policy-name ${LAMBDA_IAM_ROLE_POLICY} \
     --policy-document file://${LAMBDA_IAM_ROLE_POLICY}.json
 
-sleep 15
+while true; do
+    PN=$(aws iam get-role-policy \
+        --role-name ${LAMBDA_IAM_ROLE} \
+        --policy-name ${LAMBDA_IAM_ROLE_POLICY}|jq '.PolicyName'|tr -d '"')
+
+    if [ "${PN}" == "${LAMBDA_IAM_ROLE_POLICY}" ]; then 
+        break; 
+    fi
+done
+
 
 info "Creating local lambda bundle file: ${BUNDLE_FILE}"
 rm -f ${BUNDLE_FILE} 
@@ -107,10 +116,19 @@ aws lambda create-function \
     --handler lambda_function.lambda_handler \
     --runtime ${PYTHON_VERSION} \
     --timeout 15 \
-    --memory-size 128 \
-    --environment Variables="{SP_LOGGING_LEVEL=INFO,SP_BATCH_SIZE=200,SP_BATCH_SCALE=4}"
+    --memory-size 1024 \
+    --environment Variables="{\
+        SP_LOGGING_LEVEL=INFO,\
+        SP_BATCH_SIZE=200,\
+        SP_BATCH_SCALE=4}"
 
-sleep 15
+while true; do
+    LFN=$(aws lambda get-function \
+        --function-name ${FUNCTION_NAME}|jq '.Configuration.FunctionName'|tr -d '"')
+    if [ "${LFN}" == "${FUNCTION_NAME}" ]; then 
+        break; 
+    fi
+done
 
 info "Adding permissions to allow S3 to trigger lambda"
 aws lambda add-permission \

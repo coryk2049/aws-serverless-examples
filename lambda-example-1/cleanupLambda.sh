@@ -17,6 +17,14 @@ info() {
     echo -e "[`date '+%m/%d/%Y-%H:%M:%S'`]::INFO::---------------------------------------------------"
 }
 
+info "Deleting local lambda bundle file: ${BUNDLE_FILE}"
+rm -f ${BUNDLE_FILE} 
+
+info "Deleting lambda function: ${FUNCTION_NAME}"
+aws lambda delete-function \
+    --region ${AWS_REGION} \
+    --function-name ${FUNCTION_NAME} 
+
 info "Deleting attached role policy: ${LAMBDA_IAM_ROLE_POLICY}"
 aws iam delete-role-policy \
     --role-name ${LAMBDA_IAM_ROLE} \
@@ -45,19 +53,11 @@ aws s3api delete-bucket-policy --bucket ${REPO_NAME}
 
 rm -f ${BUCKET_POLICY}.json
 
-info "Deleting local lambda bundle file: ${BUNDLE_FILE}"
-rm -f ${BUNDLE_FILE} 
-
-info "Deleting lambda function: ${FUNCTION_NAME}"
-aws lambda delete-function \
-    --region ${AWS_REGION} \
-    --function-name ${FUNCTION_NAME} 
-
 info "Deleting CloudWatch log streams"
 aws logs describe-log-streams \
     --log-group-name /aws/lambda/${FUNCTION_NAME} \
     --query 'logStreams[*].logStreamName' \
-    --output table | awk '{print $2}' | grep -v ^$ | \
+    --output table | awk '{print $2}' | grep -v ^$ | tail -n +2 | \
         while read LOG_STREAM_NAME; do aws logs delete-log-stream \
         --log-group-name /aws/lambda/${FUNCTION_NAME} \
         --log-stream-name ${LOG_STREAM_NAME}; done

@@ -1,8 +1,8 @@
 ## lambda-example-1
 
-Upload test EDR file to S3 bucket that should trigger Lambda function to parse, transform, and log in CloudWatch.
+A very early component of data processing ETL serverless design.
 
-A very early stage of data ETL serverless design.
+Upload test EDR file to S3 bucket that should trigger Lambda function to parse, transform, and log in CloudWatch.
 
 ### Procedure
 Post ```git clone```, the files below are of importance:
