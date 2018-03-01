@@ -2,7 +2,7 @@
 
 A very early component of data processing ETL serverless design.
 
-Upload test EDR file to S3 bucket that should trigger Lambda function to parse, transform, and load into a DynamoDb table.
+Upload test EDR file to S3 bucket that should trigger Lambda function to parse, transform, and load data into a DynamoDb table (i.e. BL_EDR).
 
 ### Procedure
 Post `git clone`, the files below are of importance:
@@ -11,3 +11,4 @@ Post `git clone`, the files below are of importance:
 - `uploadTestData.sh` - upload test EDR file to S3 bucket
 - `checkCloudWatch.sh` - monitor progress of Lambda function
 - `cleanupLambda.sh` - tear down and clean up Lambda deployment
+- `updateLambdaCode.sh` - update only your Lambda function code and deploy
